@@ -18,12 +18,13 @@ and renders a simple graph to the screen.
 
 ```commandline
 pip install -r requirements.txt
+
 USERNAME=yourlogin PASSWORD=yourpassword fetch.py
 ```
 
 ## Code
 
-Besides the need to get the data, this was partly an excercise to learn [Pandas](https://pandas.pydata.org/):
+Besides the need to get the data, this was partly an exercise to learn [Pandas](https://pandas.pydata.org/):
 
 > pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,
 > built on top of the Python programming language.
