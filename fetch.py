@@ -8,6 +8,7 @@ import requests
 
 MAIN_URL = 'https://energyeasy.ue.com.au/electricityView/index'
 LOGIN_FORM = 'https://energyeasy.ue.com.au/login_security_check'
+MONTH_URL_FORMAT = 'https://energyeasy.ue.com.au/electricityView/period/month/%d'
 
 # categories within consumptionData
 DATA_SETS = ['consumptionData', 'costData']
@@ -30,7 +31,7 @@ def fetch_all_data(username, password) -> list[dict]:
     # get multiple months of data. technically could step=2 and use selectedPeriod + comparisonPeriod
     results = []
     for offset in range(100):
-        data = s.get(f'https://energyeasy.ue.com.au/electricityView/period/month/{offset}').json()
+        data = s.get(MONTH_URL_FORMAT % offset).json()
         results.append(data)
 
         if not data['isPreviousPeriodDataAvailable']:
