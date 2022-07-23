@@ -76,13 +76,16 @@ if __name__ == '__main__':
     df.to_excel('energyeasy.xlsx')
 
     # display a graph
+    plt.style.use('seaborn-muted')
     fig, ax = plt.subplots(figsize=(20, 5))
     df.plot(y='costData_peak', kind='line', title='Power Cost per Day', ax=ax).set_ylabel('cost per day ($)')
-    plt.plot(df['costData_peak'].rolling(7).mean(), label='Weekly average')
-    plt.plot(df['costData_peak'].rolling(30).mean(), label='Monthly average')
-    plt.legend(frameon=False)
-    not_zero = df.query('costData_peak != 0')
+    plt.plot(df['costData_peak'].rolling(7).mean(), label='7-day average')
+    plt.plot(df['costData_peak'].rolling(30).mean(), label='30-day average')
+    plt.legend()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
     # set axis limits more tightly than default
+    not_zero = df.query('costData_peak != 0')
     ax.set_xlim(not_zero.index[0], not_zero.index[-1])
     ax.set_ylim(0)
 
