@@ -76,5 +76,14 @@ if __name__ == '__main__':
     df.to_excel('energyeasy.xlsx')
 
     # display a graph
-    df.plot(y='costData_peak', kind='line', title='Power Cost per Day').set_ylabel('$')
+    fig, ax = plt.subplots(figsize=(20, 5))
+    df.plot(y='costData_peak', kind='line', title='Power Cost per Day', ax=ax).set_ylabel('cost per day ($)')
+    plt.plot(df['costData_peak'].rolling(7).mean(), label='Weekly average')
+    plt.plot(df['costData_peak'].rolling(30).mean(), label='Monthly average')
+    plt.legend(frameon=False)
+    not_zero = df.query('costData_peak != 0')
+    # set axis limits more tightly than default
+    ax.set_xlim(not_zero.index[0], not_zero.index[-1])
+    ax.set_ylim(0)
+
     plt.show()
